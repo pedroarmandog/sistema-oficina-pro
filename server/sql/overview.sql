@@ -1,0 +1,17 @@
+-- Documento de referência: as tabelas são criadas pelo Sequelize, não execute este arquivo como migração.
+-- Todas as entidades de negócio são associadas a CompanyId.
+-- Company: Users, Customers, Suppliers, Products, Vehicles, Services, WorkOrders,
+-- CashSessions, CashMovements, FinancialEntries, Sales, StockMovements,
+-- PushSubscriptions, Purchases, PurchaseItems, PasswordResets, AuditLogs,
+-- Subscriptions, FiscalDocuments, NotificationJobs.
+-- Customer: Vehicles, WorkOrders, Sales.
+-- Vehicle: WorkOrders.
+-- WorkOrder: WorkOrderItems (peças e serviços).
+-- CashSession: CashMovements.
+-- Sale: SaleItems; SaleItem referencia Product opcionalmente (ex.: mão de obra da OS).
+-- Product: StockMovements, PurchaseItems, SaleItems, WorkOrderItems.
+-- Supplier: Purchases.
+-- Purchase: PurchaseItems; PurchaseItem referencia Product.
+-- User: PasswordResets, AuditLogs.
+-- Entidades financeiras e de assinatura: FinancialEntries, Subscriptions, FiscalDocuments.
+-- Notificações: PushSubscriptions, NotificationJobs.
