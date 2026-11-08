@@ -4,7 +4,7 @@ import { db } from './models/index.js'; import authRoutes from './routes/auth.js
 if(process.env.NODE_ENV==='production'&&(!process.env.JWT_SECRET||process.env.JWT_SECRET.length<32)){throw new Error('JWT_SECRET forte (mínimo 32 caracteres) é obrigatório em produção.')}
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
-const app=express();app.use(helmet({crossOriginResourcePolicy:{policy:'cross-origin'}}));app.use(cors({origin:process.env.CLIENT_URL||'http://localhost:5173'}));app.use(express.json({limit:'2mb'}));app.use(rateLimit({windowMs:15*60*1000,max:500}));
+const app=express();app.use(helmet({crossOriginResourcePolicy:{policy:'cross-origin'},contentSecurityPolicy:{directives:{defaultSrc:["'self'"],connectSrc:["'self'"],styleSrc:["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],fontSrc:["'self'",'https://fonts.gstatic.com','data:'],imgSrc:["'self'",'data:','blob:','https:'],scriptSrc:["'self'"],workerSrc:["'self'"],frameSrc:["'self'",'blob:'],objectSrc:["'none'"]}}}));app.use(cors({origin:process.env.CLIENT_URL||'http://localhost:5173'}));app.use(express.json({limit:'2mb'}));app.use(rateLimit({windowMs:15*60*1000,max:500}));
 app.use('/uploads', express.static(path.resolve(__dirname, '../uploads'), { maxAge: '7d', immutable: true }));
 app.get('/api/health',(req,res)=>res.json({status:'ok',service:'OficinaPro API'}));app.use('/api/auth',authRoutes);app.use('/api/webhooks',webhookRoutes);app.use('/api',advancedRoutes);app.use('/api',apiRoutes);
 if(process.env.NODE_ENV==='production'){const clientDist=path.resolve(__dirname,'../../client/dist');app.use(express.static(clientDist));app.get('*',(req,res)=>res.sendFile(path.join(clientDist,'index.html')))}
