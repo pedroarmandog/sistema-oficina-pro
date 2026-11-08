@@ -39,7 +39,7 @@ const inPeriod=(row,from,to)=>{
 async function logoPng(logo){
  if(!logo)return null;
  try{
-  const base=(import.meta.env.VITE_API_URL||'/api').replace(/\/api\/?$/,'');
+  const base=(import.meta.env.VITE_API_URL||'http://localhost:3333/api').replace(/\/api\/?$/,'');
   const src=logo.startsWith('/uploads/')?`${base}${logo}`:logo;
   const res=await fetch(src);if(!res.ok)return null;
   const url=URL.createObjectURL(await res.blob());
